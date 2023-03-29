@@ -47,7 +47,21 @@ namespace TechJobsConsoleAutograded6
             // load data, if not already loaded
             LoadData();
 
-            return null;
+            List<Dictionary<string, string>> jobs = new List<Dictionary<string, string>>();  
+
+            foreach (Dictionary<string, string> row in AllJobs)
+            {
+               foreach (string key in row.Keys)
+                {
+                    string term = row[key];
+                    if(term.ToLower().Contains(value.ToLower())) {
+                        jobs.Add(row);
+                        break;
+                    }
+                }
+            }
+
+            return jobs;
         }
 
         /**
@@ -57,6 +71,9 @@ namespace TechJobsConsoleAutograded6
          * For example, searching for employer "Enterprise" will include results
          * with "Enterprise Holdings, Inc".
          */
+     
+
+
         public static List<Dictionary<string, string>> FindByColumnAndValue(string column, string value)
         {
             // load data, if not already loaded
@@ -70,7 +87,7 @@ namespace TechJobsConsoleAutograded6
 
 
                 //TODO: Make search case-insensitive
-                if (aValue.Contains(value))
+                if (aValue.ToLower().Contains(value.ToLower()))
                 {
                     jobs.Add(row);
                 }
@@ -78,7 +95,7 @@ namespace TechJobsConsoleAutograded6
 
             return jobs;
         }
-
+         
         /*
          * Load and parse data from job_data.csv
          */
